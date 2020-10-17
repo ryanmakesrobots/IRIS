@@ -1,0 +1,4 @@
+sqlusername = ''
+sqlpassword = ''
+sqlserverip = ''
+sqlserverdb = ''
