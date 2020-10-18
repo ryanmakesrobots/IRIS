@@ -36,6 +36,9 @@ def insertImage(vals):
         query = f'''INSERT INTO {table} (camera, tstamp, photo) VALUES(%s, %s, %s)'''
         c.execute(query, vals)
         conn.commit()
+        query = f'''SELECT MAX(photoid) FROM {table}'''
+        c.execute(query,)
+        result = c.fetchone()
     except Exception as e:
         print(f'data could not be inserted: {e}')
 
