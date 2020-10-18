@@ -39,6 +39,7 @@ def insertImage(vals):
         query = f'''SELECT MAX(photoid) FROM {table}'''
         c.execute(query,)
         result = c.fetchone()
+        print(result)
     except Exception as e:
         print(f'data could not be inserted: {e}')
 
