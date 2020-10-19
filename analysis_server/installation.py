@@ -1,6 +1,7 @@
 import os
 import time, subprocess, sys
 import bin.config as config
+from bin.installer.firewall import setFirewallRules
 
 def installModules(pipversion):
     modules = ['pyufw', 'elevate']
@@ -21,13 +22,12 @@ def buildImageStore():
         time.sleep(5)
 
 def buildFirewallRules():
-    import pyufw
-    from elevate import elevate
-    elevate(graphical=False)
-    ufw.add(f"allow {config.analysisserverport}")
+    setFirewallRules(config.analysisserverport)
 
 if __name__ == '__main__':
     print('Welcome to Installation Candidate')
+    print('**You will require SUDO Credentials during this installation**')
+    time.sleep(2)
     print('Installing Modules')
     pipversion = input("If you use pip & pip3 please enter 'pip3' here, otherwise just enter 'pip': ")
     installModules(pipversion)
