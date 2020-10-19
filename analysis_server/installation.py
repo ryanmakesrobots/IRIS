@@ -3,7 +3,7 @@ import time, subprocess, sys
 import bin.config as config
 
 def installModules(pipversion):
-    modules = ['pyufw']
+    modules = ['pyufw', 'elevate']
     for package in modules:
         subprocess.check_call([sys.executable, "-m", pipversion, "install", package])
 
@@ -22,6 +22,8 @@ def buildImageStore():
 
 def buildFirewallRules():
     import pyufw
+    from elevate import elevate
+    elevate()
     ufw.add(f"allow {config.analysisserverport}")
 
 if __name__ == '__main__':
