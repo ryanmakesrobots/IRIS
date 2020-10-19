@@ -2,10 +2,10 @@ import os
 import time, subprocess, sys
 import bin.config as config
 
-def installModules():
-    modules = ['pythonufw']
+def installModules(pipversion):
+    modules = ['pyufw']
     for package in modules:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        subprocess.check_call([sys.executable, "-m", pipversion, "install", package])
 
 def buildImageStore():
     requiredFolders = ['classified', 'unclassified']
@@ -27,7 +27,8 @@ def buildFirewallRules():
 if __name__ == '__main__':
     print('Welcome to Installation Candidate')
     print('Installing Modules')
-    installModules()
+    pipversion = input("If you use pip & pip3 please enter 'pip3' here, otherwise just enter 'pip': ")
+    installModules(pipversion)
     print('Building Image Store')
     buildImageStore()
     print('Setting Firewall Rules')
