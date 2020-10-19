@@ -2,6 +2,7 @@ import socket
 import argparse
 import pickles
 import os
+import config
 from sql_connection import create_connection
 
 def server():
@@ -46,5 +47,5 @@ if __name__ == '__main__':
                     help='the ip address of the server that the application runs on')
     args = vars(ap.parse_args())
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((args[ip], 7821))
+    s.bind((args[ip], config.analysisserverport))
     s.listen(15)

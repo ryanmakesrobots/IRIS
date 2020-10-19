@@ -1,5 +1,6 @@
 import os
 import time, subprocess, sys
+import bin.config as config
 
 def installModules():
     modules = ['pythonufw']
@@ -21,7 +22,8 @@ def buildImageStore():
 
 def buildFirewallRules():
     import pythonufw
-    ufw.add("allow 22")
+    ufw.add(f"allow {config.analysisserverport}")
+
 if __name__ == '__main__':
     print('Welcome to Installation Candidate')
     print('Installing Modules')
