@@ -23,7 +23,7 @@ def buildImageStore():
 def buildFirewallRules():
     import pyufw
     from elevate import elevate
-    elevate()
+    elevate(graphical=False)
     ufw.add(f"allow {config.analysisserverport}")
 
 if __name__ == '__main__':
