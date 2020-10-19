@@ -1,6 +1,6 @@
 import elevate
 
 def setFirewallRules(port):
-    elevate.evelate()
+    elevate.elevate()
     import pyufw
     ufw.add(f"allow {port}")
