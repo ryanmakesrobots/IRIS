@@ -21,7 +21,7 @@ def buildImageStore():
         time.sleep(5)
 
 def buildFirewallRules():
-    import pythonufw
+    import pyufw
     ufw.add(f"allow {config.analysisserverport}")
 
 if __name__ == '__main__':
