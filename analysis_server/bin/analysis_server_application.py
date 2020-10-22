@@ -51,5 +51,5 @@ if __name__ == '__main__':
                     help='the ip address of the server that the application runs on')
     args = vars(ap.parse_args())
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((args[ip], config.analysisserverport))
+    s.bind((args['ip'], config.analysisserverport))
     s.listen(15)
