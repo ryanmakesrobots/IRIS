@@ -2,6 +2,7 @@ import socket
 import pickle
 from sql_connection import create_connection
 import argparse
+from notification_agent import sendNotification
 
 HEADERSIZE = 10
 
@@ -38,8 +39,8 @@ def insertImage(vals):
         conn.commit()
         query = f'''SELECT MAX(photoid) FROM {table}'''
         c.execute(query,)
-        result = int(c.fetchone()[0])
-        print(result)
+        id = int(c.fetchone()[0])
+        sendNotification(result, table)
     except Exception as e:
         print(f'data could not be inserted: {e}')
 

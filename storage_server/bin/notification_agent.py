@@ -1,6 +1,6 @@
 import socket
 from config import analysisserverip
-import pickles
+import pickle
 
 HEADERSIZE = 10
 
