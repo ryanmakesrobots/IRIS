@@ -1,9 +1,11 @@
 import socket
 import argparse
-import pickles
+import pickle
 import os
 import config
 from sql_connection import create_connection
+
+HEADERSIZE = 10
 
 def server():
     print(f'server running')
@@ -40,6 +42,8 @@ def pullImage(vals):
         outfile.write(photoBinData)
     return(f'{id}.png')
 
+def getFace(image):
+    pass
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
