@@ -66,19 +66,16 @@ class motionFrame:
 
 def motion_detection(frameCount, location, store):
     global streamFrame
-    print(f'at motion_detection start {type(streamFrame)}')
     global threadLock
     md = motionAgent(alpha=0.1)
     total = 0
 
     while True:
         frame = camStream.read() ##get the stream from camera
-        print(f'frame at motion_detection {type(frame)}')
         frame = imutils.rotate(frame, 180) ##my camera is mounted covertly and is upside down
         frame = imutils.resize(frame, width=400, height=100)
         grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) ##convert the image to gray
         grey = cv2.GaussianBlur(grey, (7,7), 0) ##blur the edges for easier line detection (less gaps)
-        print(f'grey at motion {type(grey)}')
         timestamp = datetime.datetime.now() ##get the time!
         cv2.putText(frame, timestamp.strftime("%A %d %B %Y %I:%M:%S")+""+location, (10, frame.shape[0] - 10 ), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0,0,255), 1) ##add the timestamp and the location to the original frame for feeding back
 
@@ -100,10 +97,7 @@ def motion_detection(frameCount, location, store):
         total += 1 ##iterate the total frames by 1
 
         with threadLock: ##
-                print(f'at end motion_detection {type(frame)}')
                 streamFrame = frame.copy()
-                print(f'at streamFrame copy {type(frame)}')
-
 def stream():
     global threadLock
     global streamFrame
