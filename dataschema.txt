@@ -1,0 +1,17 @@
+Table1 (camdata):
+    Description: table to store motion detection photos
+    Fields:
+        photoid [INT, Auto Increment, PRIMARY KEY]
+        camera [VARCHAR(50)] -- This stores the location of the camera where the photo has been captured
+        tstamp [datetime] -- This stores the timestamp for the time of the motion capture
+        photo [BLOB] -- This stores the binary of the image captured
+
+Table2 (facedata):
+    Description: table to store facial data
+    Fields:
+        identificationid [INT, Auto Increment, PRIMARY KEY]
+        rawphotoid [INT, FOREIGNKEY >> camdata(photoid)] -- Links to the original image which was analysed
+        tstamp [datetime] -- Timestamp of the analysis
+        match [BOOLEAN] -- Whether there was a match based on the data provided
+        matchedperson [VARCHAR(100)] -- If a person was identified, their name
+        confidence [INT] -- Confidence of match in percentage
