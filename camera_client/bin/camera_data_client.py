@@ -31,7 +31,8 @@ def send_data(data, dCached=False):
 
 
 def prepImage(camera, tstamp, image, store):
-    os.chdir(store)
+    if store not in os.getcwd():
+        os.chdir(store)
     filename = image
     image = convertBinary(image)
     vals = (camera, tstamp, image)
