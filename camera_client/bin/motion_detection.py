@@ -100,7 +100,7 @@ def motion_detection(frameCount, location, store):
                 img = motionFrame(filename, frame,
                                   store)  ###create an object of the frame where motion has been detected
                 img.store(img.title, img.image, img.dir)  ##use the storage function of the object
-                x = threading.thread(prepImage(location, timestamp,
+                x = threading.Thread(prepImage(location, timestamp,
                                                f'{store}/{filename}'))  ##use the client communication module to send data to the storage server - create a multithread to do this
                 x.start()  ##start the thread
                 end = time.time()  ##the end of the processing time - for calculating the total time for processing
