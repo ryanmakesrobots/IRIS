@@ -25,13 +25,4 @@ def buildFirewallRules():
     setFirewallRules(config.analysisserverport)
 
 if __name__ == '__main__':
-    print('Welcome to Installation Candidate')
-    print('**You will require SUDO Credentials during this installation**')
-    time.sleep(2)
-    print('Installing Modules')
-    pipversion = input("If you use pip & pip3 please enter 'pip3' here, otherwise just enter 'pip': ")
-    installModules(pipversion)
-    print('Building Image Store')
     buildImageStore()
-    print('Setting Firewall Rules')
-    buildFirewallRules()
