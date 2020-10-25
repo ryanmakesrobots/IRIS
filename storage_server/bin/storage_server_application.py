@@ -4,7 +4,9 @@ from sql_connection import create_connection
 import argparse
 from notification_agent import sendNotification
 
+
 HEADERSIZE = 10
+
 
 def server():
     print(f'server running')
@@ -31,6 +33,7 @@ def server():
                     fulldata = b''
                     clsocket, claddress = s.accept()
 
+
 def insertImage(vals):
     try:
         conn, c = create_connection()
@@ -38,11 +41,12 @@ def insertImage(vals):
         c.execute(query, vals)
         conn.commit()
         query = f'''SELECT MAX(photoid) FROM {table}'''
-        c.execute(query,)
+        c.execute(query, )
         id = int(c.fetchone()[0])
         sendNotification(id, table)
     except Exception as e:
         print(f'data could not be inserted: {e}')
+
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()

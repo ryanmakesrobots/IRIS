@@ -7,6 +7,7 @@ from sql_connection import create_connection
 
 HEADERSIZE = 10
 
+
 def server():
     print(f'server running')
     while True:
@@ -31,6 +32,7 @@ def server():
                     fulldata = b''
                     clsocket, claddress = s.accept()
 
+
 def pullImage(vals):
     conn, c = create_connection
     id, table = vals
@@ -40,10 +42,12 @@ def pullImage(vals):
     id = c.fetchone()[0]
     with open(f'{id}.png', wb) as outfile:
         outfile.write(photoBinData)
-    return(f'{id}.png')
+    return (f'{id}.png')
+
 
 def getFace(image):
     pass
+
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
