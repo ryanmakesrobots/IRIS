@@ -3,6 +3,7 @@ import pickle
 import os
 from datetime import datetime
 from config import storageserverip
+from streamingservice import localStore
 
 serverip = storageserverip
 HEADERSIZE = 10
@@ -31,6 +32,7 @@ def send_data(data, dCached=False):
 
 
 def prepImage(camera, tstamp, image):
+    os.chdir(store)
     filename = image
     image = convertBinary(image)
     vals = (camera, tstamp, image)
