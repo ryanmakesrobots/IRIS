@@ -36,7 +36,7 @@ def prepImage(camera, tstamp, image, store):
     filename = image
     image = convertBinary(image)
     vals = (camera, tstamp, image)
-    send_data(vals)
+    checkAndSend(vals)
     os.remove(filename)
     print('completed')
 
