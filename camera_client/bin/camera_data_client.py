@@ -1,7 +1,7 @@
 import socket
 import pickle
 import os
-from time import datetime
+from datetime import datetime
 from config import storageserverip
 
 serverip = storageserverip
