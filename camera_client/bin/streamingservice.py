@@ -5,7 +5,7 @@ import threading
 import argparse
 import time
 
-localStore = './store' ##the location of the local store where images are temporarily stored
+localStore = 'store' ##the location of the local store where images are temporarily stored
 #streamFrame = None ##frame for streaming
 #threadLock = threading.Lock() ##define a lock for multithreading locking
 

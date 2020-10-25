@@ -6,6 +6,7 @@ import datetime
 import time
 import threading
 from camera_data_client import prepImage
+import os
 
 threadLock = threading.Lock()
 streamFrame = None
@@ -67,7 +68,8 @@ class motionFrame:
         self.dir = dir
 
     def store(self, title, image, dir):
-        cv2.imwrite('.' + self.dir + self.title, self.image)  ##store the frame in a given directory for processing
+        os.chdir(self.dir)
+        cv2.imwrite(self.title, self.image)  ##store the frame in a given directory for processing
 
 
 def motion_detection(frameCount, location, store):
