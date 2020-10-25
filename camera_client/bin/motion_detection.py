@@ -31,7 +31,7 @@ class motionAgent:
             return
         cv2.accumulateWeighted(image, self.bg, self.alpha)
 
-    def detect(self, image, threshVal=50):
+    def detect(self, image, threshVal=25):
         ##detect motion through analysis of change in image -- threshVal = threshold for difference in image, i've set mine higher to avoid light pollution as motion
         delta = cv2.absdiff(self.bg.astype("uint8"),
                             image)  ##calculate the absolute difference (delta) between the background image and the current frame
@@ -68,7 +68,8 @@ class motionFrame:
         self.dir = dir
 
     def store(self, title, image, dir):
-        os.chdir(self.dir)
+        if self.dir not in os.getcwd():
+            os.chdir(self.dir)
         cv2.imwrite(self.title, self.image)  ##store the frame in a given directory for processing
 
 
