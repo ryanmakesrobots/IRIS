@@ -35,7 +35,7 @@ def server():
 
 
 def pull_image(vals):
-    conn, c = create_connection
+    conn, c = create_connection()
     id, table = vals
     query = f'''SELECT photoid, photo FROM {table} WHERE photoid is {id}'''
     c.execute(query)
