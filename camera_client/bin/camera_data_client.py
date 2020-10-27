@@ -55,7 +55,7 @@ def upload_cached():
         try:
             print(len(cached_data))
             send_data(data['data'])
-            del (cached_data[i])
+            del(cached_data[i])
         except Exception as e:
             print('failed to upload cached data', e)
             return
