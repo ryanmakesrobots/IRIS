@@ -2,7 +2,7 @@ import socket
 import pickle
 from sql_connection import create_connection
 import argparse
-from notification_agent import sendNotification
+from notification_agent import send_notification
 
 
 HEADERSIZE = 10
@@ -14,27 +14,27 @@ def server():
         clsocket, claddress = s.accept()
         print(f'client connected at {claddress}')
         while True:
-            fulldata = b''
+            full_data = b''
             new_data = True
             while True:
                 data = clsocket.recv(16)
                 if new_data:
-                    datalen = int(data[:HEADERSIZE])
+                    data_len = int(data[:HEADERSIZE])
                     new_data = False
 
-                fulldata += data
+                full_data += data
 
-                if len(fulldata) - HEADERSIZE == datalen:
+                if len(full_data) - HEADERSIZE == data_len:
                     print('all data recvd')
-                    fulldata = pickle.loads(fulldata[HEADERSIZE:])
-                    insertImage(fulldata)
+                    full_data = pickle.loads(full_data[HEADERSIZE:])
+                    insert_image(full_data)
                     print('reopening connection')
                     new_data = True
-                    fulldata = b''
+                    full_data = b''
                     clsocket, claddress = s.accept()
 
 
-def insertImage(vals):
+def insert_image(vals):
     try:
         conn, c = create_connection()
         query = f'''INSERT INTO {table} (camera, tstamp, photo) VALUES(%s, %s, %s)'''
@@ -43,7 +43,7 @@ def insertImage(vals):
         query = f'''SELECT MAX(photoid) FROM {table}'''
         c.execute(query, )
         id = int(c.fetchone()[0])
-        sendNotification(id, table)
+        send_notification(id, table)
     except Exception as e:
         print(f'data could not be inserted: {e}')
 

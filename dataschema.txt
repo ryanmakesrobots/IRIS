@@ -12,6 +12,6 @@ Table2 (facedata):
         identificationid [INT, Auto Increment, PRIMARY KEY]
         rawphotoid [INT, FOREIGNKEY >> camdata(photoid)] -- Links to the original image which was analysed
         tstamp [datetime] -- Timestamp of the analysis
-        match [BOOLEAN] -- Whether there was a match based on the data provided
+        positivematch [BOOLEAN] -- Whether there was a match based on the data provided
         matchedperson [VARCHAR(100)] -- If a person was identified, their name
         confidence [INT] -- Confidence of match in percentage

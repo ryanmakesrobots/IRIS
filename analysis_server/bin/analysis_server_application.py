@@ -27,28 +27,31 @@ def server():
                 if len(fulldata) - HEADERSIZE == datalen:
                     print('all data recvd')
                     fulldata = pickle.loads(fulldata[HEADERSIZE:])
+                    pull_images(fulldata)
                     print('reopening connection')
                     new_data = True
                     fulldata = b''
                     clsocket, claddress = s.accept()
 
 
-def pullImage(vals):
+def pull_image(vals):
     conn, c = create_connection
     id, table = vals
     query = f'''SELECT photoid, photo FROM {table} WHERE photoid is {id}'''
     c.execute(query)
-    photoBinData = c.fetchone()[1]
+    photo_bin_data = c.fetchone()[1]
     id = c.fetchone()[0]
     with open(f'{id}.png', wb) as outfile:
-        outfile.write(photoBinData)
-    return (f'{id}.png')
+        outfile.write(photo_bin_data)
+    return f'{id}.png'
 
 
-def getFace(image):
+def get_face(image):
     pass
 
 
+def insert_match_data(data):
+    
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('-i', '--ip', type=str, required=True,

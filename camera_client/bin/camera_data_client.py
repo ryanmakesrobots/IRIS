@@ -6,16 +6,16 @@ from config import storageserverip
 
 serverip = storageserverip
 HEADERSIZE = 10
-cachedData = []
+cached_data = []
 
 
-def checkAndSend(data):
-    if cachedData is not None:
+def check_and_send(data):
+    if cached_data:
         upload_cached()
     send_data(data)
 
 
-def send_data(data, dCached=False):
+def send_data(data, d_cached=False):
     try:
         c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         c.connect((serverip, 6572))
@@ -23,32 +23,31 @@ def send_data(data, dCached=False):
         data = bytes(f'{len(data):<{HEADERSIZE}}', 'utf-8') + data
         c.send(data)
     except Exception as e:
-        if dCached:
+        if d_cached:
             return False
-        cachedData.append({'timeOfUpload': datetime.now(), 'data': data})
+        cached_data.append({'timeOfUpload': datetime.now(), 'data': data})
         print('Cached for later upload')
-        print(cachedData)
 
 
-def prepImage(camera, tstamp, image, store):
+def prep_image(camera, tstamp, image, store):
     if store not in os.getcwd():
         os.chdir(store)
     filename = image
-    image = convertBinary(image)
+    image = convert_binary(image)
     vals = (camera, tstamp, image)
-    checkAndSend(vals)
+    check_and_send(vals)
     os.remove(filename)
     print('completed')
 
 
-def convertBinary(image):
+def convert_binary(image):
     with open(image, 'rb') as file:
-        binaryData = file.read()
-    return binaryData
+        binarydata = file.read()
+    return binarydata
 
 
 def upload_cached():
-    for i in range(len(cachedData)):
-        if send_data(cachedData[i]['data'], dCached=True) == False:
+    for i in range(len(cached_data)):
+        if not send_data(cached_data[i]['data'], d_cached=True):
             return
-        del cachedData[i]
+        del cached_data[i]
