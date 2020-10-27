@@ -37,11 +37,12 @@ def server():
 def pull_image(vals):
     conn, c = create_connection()
     id, table = vals
-    query = f'''SELECT photoid, photo FROM {table} WHERE photoid is {id}'''
+    query = f'''SELECT photoid, photo FROM {table} WHERE photoid = {id}'''
     c.execute(query)
-    photo_bin_data = c.fetchone()[1]
-    id = c.fetchone()[0]
-    with open(f'{id}.png', wb) as outfile:
+    result = c.fetchone()
+    photo_bin_data = result[1]
+    id = result[0]
+    with open(f'{id}.png', 'wb') as outfile:
         outfile.write(photo_bin_data)
     return f'{id}.png'
 
