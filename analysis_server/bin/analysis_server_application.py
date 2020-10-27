@@ -27,7 +27,7 @@ def server():
                 if len(fulldata) - HEADERSIZE == datalen:
                     print('all data recvd')
                     fulldata = pickle.loads(fulldata[HEADERSIZE:])
-                    pull_images(fulldata)
+                    pull_image(fulldata)
                     print('reopening connection')
                     new_data = True
                     fulldata = b''
