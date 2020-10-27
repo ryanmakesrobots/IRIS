@@ -14,8 +14,9 @@ cache_upload_in_progress = False
 def check_and_send(data):
     try:
         send_data(data)
-        uc_thread = Thread(target=upload_cached())
-        uc_thread.start()
+        if cached_data:
+            uc_thread = Thread(target=upload_cached())
+            uc_thread.start()
     except Exception as e:
         print(e)
         print('will cache data')
@@ -48,19 +49,13 @@ def convert_binary(image):
 
 
 def upload_cached():
-    x = 0
-    if cached_data:
-        while x < len(cached_data):
-            print('loading into cached data')
-            for i, data in enumerate(cached_data):
-                print(f'index of {i}')
-                try:
-                    x += 1
-                    print(data['data'])
-                    send_data(data['data'])
-                    del (cached_data[i])
-                except Exception as e:
-                    print('failed to upload cached data', e)
-                    return
-    else:
-        return
+    print('loading into cached data')
+    for i, data in enumerate(cached_data):
+        print(f'index of {i}')
+        try:
+            print(len(cached_data))
+            send_data(data['data'])
+            del (cached_data[i])
+        except Exception as e:
+            print('failed to upload cached data', e)
+            return
