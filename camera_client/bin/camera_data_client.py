@@ -8,7 +8,6 @@ from config import storageserverip
 serverip = storageserverip
 HEADERSIZE = 10
 cached_data = []
-cache_upload_in_progress = False
 
 
 def check_and_send(data):
