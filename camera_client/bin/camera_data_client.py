@@ -10,24 +10,21 @@ cached_data = []
 
 
 def check_and_send(data):
-    if cached_data:
-        upload_cached()
-    send_data(data)
-
-
-def send_data(data, d_cached=False):
     try:
-        c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        c.connect((serverip, 6572))
-        data = pickle.dumps(data)
-        data = bytes(f'{len(data):<{HEADERSIZE}}', 'utf-8') + data
-        c.send(data)
+        send_data(data)
+        upload_cached()
     except Exception as e:
-        if d_cached:
-            print('upload of cached data failed', e)
-            return False
+        print(e)
+        print('will cache data')
         cached_data.append({'timeOfUpload': datetime.now(), 'data': data})
-        print('Cached for later upload')
+
+
+def send_data(data):
+    c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    c.connect((serverip, 6572))
+    data = pickle.dumps(data)
+    data = bytes(f'{len(data):<{HEADERSIZE}}', 'utf-8') + data
+    c.send(data)
 
 
 def prep_image(camera, tstamp, image, store):
@@ -48,10 +45,15 @@ def convert_binary(image):
 
 
 def upload_cached():
-    for i, data in enumerate(cached_data):
-        if not send_data(data['data'], d_cached=True):
-            print('failed to load cached data into server returning')
-            return
-        else:
-            print('successfully loaded the cached data, deleting from cache')
-            del(cached_data[i])
+    print('loading into cached data')
+    if cached_data:
+        for i, data in enumerate(cached_data):
+            print(f'index of {i}')
+            try:
+                print(data['data'])
+                send_data(data['data'])
+                del (cached_data[i])
+            except Exception as e:
+                print('failed to upload cached data', e)
+    else:
+        return
