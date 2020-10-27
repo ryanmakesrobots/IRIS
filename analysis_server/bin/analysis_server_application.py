@@ -51,7 +51,9 @@ def get_face(image):
 
 
 def insert_match_data(data):
-    
+    pass
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('-i', '--ip', type=str, required=True,

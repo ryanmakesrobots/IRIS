@@ -24,6 +24,7 @@ def send_data(data, d_cached=False):
         c.send(data)
     except Exception as e:
         if d_cached:
+            print('upload of cached data failed')
             return False
         cached_data.append({'timeOfUpload': datetime.now(), 'data': data})
         print('Cached for later upload')
@@ -49,5 +50,9 @@ def convert_binary(image):
 def upload_cached():
     for i in range(len(cached_data)):
         if not send_data(cached_data[i]['data'], d_cached=True):
+            print('upload of cached data failed: no connection')
+            print(len(cached_data))
             return
-        del cached_data[i]
+        else:
+            print('cached data uploaded, now deleting from cache')
+            del cached_data[i]
