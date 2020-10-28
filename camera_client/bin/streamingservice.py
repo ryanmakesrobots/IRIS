@@ -19,13 +19,12 @@ def video_stream():
 
 @app.route('/api/v1/command/<var>')
 def api_command(var):
-    global armed
     var = var.upper()
     if var == 'ARM':
-        armed = True
+        motion_detection.armed = True
         return jsonify(f'Device {args["location"]} is now armed')
     elif var == 'DISARM':
-        armed = False
+        motion_detection.armed = False
         return jsonify(f'Device {args["location"]} is unarmed')
     else:
         return jsonify('Unknown')
