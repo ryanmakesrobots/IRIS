@@ -117,3 +117,8 @@ def stream():
 
             yield (b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(
                 encodedImage) + b'\r\n')
+
+
+def set_cam_state(val):
+    global armed
+    armed = val

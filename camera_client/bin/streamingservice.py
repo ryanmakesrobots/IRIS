@@ -1,4 +1,4 @@
-from motion_detection import stream, motion_detection, streamFrame, armed
+from motion_detection import stream, motion_detection, streamFrame, set_cam_state
 from imutils.video import VideoStream
 from flask import Flask, Response, render_template, jsonify
 import threading
@@ -21,11 +21,10 @@ def video_stream():
 def api_command(var):
     var = var.upper()
     if var == 'ARM':
-        motion_detection.armed = True
-        print(motion_detection.armed)
+        set_cam_state(True)
         return jsonify(f'Device {args["location"]} is now armed')
     elif var == 'DISARM':
-        motion_detection.armed = False
+        set_cam_state(False)
         return jsonify(f'Device {args["location"]} is unarmed')
     else:
         return jsonify('Unknown')
