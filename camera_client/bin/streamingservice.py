@@ -17,7 +17,7 @@ def video_stream():
     return Response(stream(), mimetype="multipart/x-mixed-replace; boundary=frame")
 
 
-@app.route('/api/v1/command/<var>', methods=['POST'])
+@app.route('/api/v1/command/<var>')
 def api_command(var):
     global armed
     var = var.upper()
