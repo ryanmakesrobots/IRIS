@@ -13,7 +13,7 @@ streamFrame = None
 print(f'at init {type(streamFrame)}')
 camStream = VideoStream(src=-1).start()
 time.sleep(2)
-
+armed = False
 
 class MotionAgent:
     def __init__(self, alpha=0.5):
@@ -80,7 +80,7 @@ def motion_detection(framecount, location, store):
         cv2.putText(frame, timestamp.strftime("%A %d %B %Y %I:%M:%S") + "" + location, (10, frame.shape[0] - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 
-        if total > framecount:
+        if total > framecount and armed:
             motion = md.detect(image=grey)
 
             if motion is not None:

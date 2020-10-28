@@ -1,4 +1,4 @@
-from motion_detection import stream, motion_detection, streamFrame
+from motion_detection import stream, motion_detection, streamFrame, armed
 from imutils.video import VideoStream
 from flask import Flask, Response, render_template, jsonify
 import threading
@@ -14,7 +14,21 @@ app = Flask(__name__)
 @app.route('/video_stream')
 def video_stream():
     print('video streaming has started')
-    return(Response(stream(), mimetype="multipart/x-mixed-replace; boundary=frame"))
+    return Response(stream(), mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
+@app.route('/api/v1/command/<var>', methods=['POST'])
+def api_command(var):
+    global armed
+    var = var.upper()
+    if var == 'ARM':
+        armed = True
+        return jsonify(f'Device {args["location"]} is now armed')
+    elif var == 'DISARM':
+        armed = False
+        return jsonify(f'Device {args["location"]} is unarmed')
+    else:
+        return jsonify('Unknown')
 
 
 if __name__ == '__main__':
@@ -31,7 +45,7 @@ if __name__ == '__main__':
                     help='the number of frames to form the bg model on (10+ is good)')
     args = vars(ap.parse_args())
     storageServer = args['storageserver']
-    t = threading.Thread(target=motion_detection, args=(args['frames'],args['location'],localStore,))
+    t = threading.Thread(target=motion_detection, args=(args['frames'], args['location'], localStore,))
     t.daemon = True
     t.start()
 
