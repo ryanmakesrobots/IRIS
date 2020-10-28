@@ -22,6 +22,7 @@ def api_command(var):
     var = var.upper()
     if var == 'ARM':
         motion_detection.armed = True
+        print(motion_detection.armed)
         return jsonify(f'Device {args["location"]} is now armed')
     elif var == 'DISARM':
         motion_detection.armed = False
