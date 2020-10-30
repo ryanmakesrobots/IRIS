@@ -29,3 +29,4 @@ def face_detection(img):
             centre = (x + w//2, y + h//2)
             colour_image = cv2.ellipse(img, centre, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
             cv2.imwrite(f'face/{fname}', colour_image)
+            os.remove(fname)
