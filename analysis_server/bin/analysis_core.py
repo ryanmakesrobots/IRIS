@@ -2,17 +2,24 @@ import os
 import cv2
 import numpy as np
 
-location_face_cascade = 'cascades/haarcascade_frontalface_default'
+location_face_cascade = 'cascades/haarcascade_frontalface_default.xml'
 
 def face_detection(img):
-    if 'imagestore/unclassified' not in os.getcwd():
-        os.chdir('imagestore/unclassified')
+    print(os.getcwd())
     face_cascade = cv2.CascadeClassifier()
     face_cascade.load(location_face_cascade)
 
+    if 'imagestore/unclassified' not in os.getcwd():
+        os.chdir('imagestore/unclassified')
+        print(os.getcwd())
+
     img = cv2.imread(img)
+    if img is None: print('img loaded but is none')
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    if gray is None: print('gray is none')
+
     gray = cv2.equalizeHist(img)
 
     face = face_cascade.detectMultiScale(gray)
