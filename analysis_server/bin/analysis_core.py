@@ -8,9 +8,7 @@ def face_detection(img):
     if 'imagestore/unclassified' in os.getcwd():
         os.chdir('..')
         os.chdir('..')
-    print('starting facial detection module')
-    print(os.getcwd())
-    print(img)
+
     face_cascade = cv2.CascadeClassifier()
     face_cascade.load(location_face_cascade)
 
@@ -19,13 +17,9 @@ def face_detection(img):
         print(os.getcwd())
 
     img = cv2.imread(img)
-    if img is None: print('img loaded but is none')
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    if gray is None: print('gray is none')
-
-    gray = cv2.equalizeHist(img)
+    gray = cv2.equalizeHist(gray)
 
     face = face_cascade.detectMultiScale(gray)
     for (x,y,w,h) in face:
