@@ -22,6 +22,8 @@ def face_detection(img):
     gray = cv2.equalizeHist(gray)
 
     face = face_cascade.detectMultiScale(gray)
+    print(face)
+    print(len(face))
     if len(face) == 0:
         print('no face detected')
     else:
