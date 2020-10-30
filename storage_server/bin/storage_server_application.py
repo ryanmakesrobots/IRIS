@@ -3,6 +3,7 @@ import pickle
 from sql_connection import create_connection
 import argparse
 from notification_agent import send_notification
+from threading import Thread
 
 
 HEADERSIZE = 10
@@ -27,7 +28,8 @@ def server():
                 if len(full_data) - HEADERSIZE == data_len:
                     print('all data recvd')
                     full_data = pickle.loads(full_data[HEADERSIZE:])
-                    insert_image(full_data)
+                    ii_thread = Thread(target=insert_image, args=full_data)
+                    ii_thread.start()
                     print('reopening connection')
                     new_data = True
                     full_data = b''

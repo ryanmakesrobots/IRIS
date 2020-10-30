@@ -5,7 +5,9 @@ import numpy as np
 location_face_cascade = 'cascades/haarcascade_frontalface_default.xml'
 
 def face_detection(img):
+    print('starting facial detection module')
     print(os.getcwd())
+    
     face_cascade = cv2.CascadeClassifier()
     face_cascade.load(location_face_cascade)
 
