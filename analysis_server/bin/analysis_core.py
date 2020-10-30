@@ -22,7 +22,9 @@ def face_detection(img):
     gray = cv2.equalizeHist(gray)
 
     face = face_cascade.detectMultiScale(gray)
+
     for (x,y,w,h) in face:
+        print('entering for vars in face')
         centre = (x + w//2, y + h//2)
         colour_image = cv2.ellipse(img, centre, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
 
