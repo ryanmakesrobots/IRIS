@@ -4,6 +4,7 @@ import pickle
 import os
 import config
 from sql_connection import create_connection
+from analysis_core import face_detection
 
 HEADERSIZE = 10
 
@@ -42,9 +43,11 @@ def pull_image(vals):
     result = c.fetchone()
     photo_bin_data = result[1]
     id = result[0]
+    if 'unclassified' not in os.getcwd():
+        os.chdir('imagestore/unclassified')
     with open(f'{id}.png', 'wb') as outfile:
         outfile.write(photo_bin_data)
-    return f'{id}.png'
+    return f'imagestore/unclassified/{id}.png'
 
 
 def get_face(image):

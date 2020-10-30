@@ -1,0 +1,5 @@
+This project has used a variety of modules;
+
+With thanks to the community who develop CV2; Numpy; DLIB; PyMySQL.
+
+Face haarcascade: Created by Rainer Lienhart.
