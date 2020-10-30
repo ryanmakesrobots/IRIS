@@ -31,10 +31,10 @@ def face_detection(img):
     else:
         for (x,y,w,h) in face:
             print('entering for vars in face')
-            #centre = (x + w//2, y + h//2)
-            #colour_image = cv2.ellipse(img, centre, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
+            centre = (x + w//2, y + h//2)
+            colour_image = cv2.ellipse(img, centre, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
             os.chdir('/face')
-            cv2.imwrite(fname, img)
+            cv2.imwrite(fname, colour_image)
 
     print('completed')
 
