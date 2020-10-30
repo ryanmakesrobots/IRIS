@@ -5,6 +5,7 @@ import numpy as np
 location_face_cascade = 'cascades/haarcascade_frontalface_default.xml'
 
 def face_detection(img):
+    fname = img
     if 'imagestore/unclassified' in os.getcwd():
         os.chdir('..')
         os.chdir('..')
@@ -31,6 +32,6 @@ def face_detection(img):
             print('entering for vars in face')
             centre = (x + w//2, y + h//2)
             colour_image = cv2.ellipse(img, centre, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
-            cv2.imwrite(img, colour_image)
+            cv2.imwrite(fname , colour_image)
 
     print('completed')
