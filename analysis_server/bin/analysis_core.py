@@ -5,6 +5,8 @@ import numpy as np
 location_face_cascade = 'cascades/haarcascade_frontalface_default'
 
 def face_detection(img):
+    if 'imagestore/unclassified' not in os.getcwd():
+        os.chdir('imagestore/unclassified')
     face_cascade = cv2.CascadeClassifier()
     face_cascade.load(location_face_cascade)
 

@@ -47,7 +47,7 @@ def pull_image(vals):
         os.chdir('imagestore/unclassified')
     with open(f'{id}.png', 'wb') as outfile:
         outfile.write(photo_bin_data)
-    face_detection('imagestore/unclassified/{id}.png')
+    face_detection('{id}.png')
 
 
 def get_face(image):
