@@ -5,6 +5,9 @@ import numpy as np
 location_face_cascade = 'cascades/haarcascade_frontalface_default.xml'
 
 def face_detection(img):
+    if 'imagestore/classified' in os.getcwd():
+        os.chdir('..')
+        os.chdir('..')
     print('starting facial detection module')
     print(os.getcwd())
     print(img)
